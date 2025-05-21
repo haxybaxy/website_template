@@ -1,0 +1,366 @@
+/* Reset and base styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
+}
+
+/* Force all elements to inherit box-sizing */
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* Top bar */
+.top-bar {
+    background: white;
+    padding: 10px 20px;
+    text-align: right;
+    border-bottom: 1px solid #eee;
+}
+
+.language-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+}
+
+.language-links a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Site title */
+.site-title {
+    text-align: left;
+    position: relative;
+    z-index: 999;
+    padding: 30px 20px;
+}
+
+.site-title h1 {
+    font-size: 2.5rem;
+    margin: 0;
+    color: #333;
+    font-weight: bold;
+}
+
+.subtitle {
+    color: #666;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* Main navigation */
+.main-nav {
+    width: 100%;
+    background: white;
+    padding: 15px 0;
+    text-align: center;
+    z-index: 1000;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.main-nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 0 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.main-nav a:hover {
+    color: #666;
+}
+
+.fixed-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.scrolled {
+    background-color: black;
+    border-color: black;
+}
+
+.scrolled a {
+    color: white;
+}
+
+.scrolled a:hover {
+    color: #ccc;
+}
+
+/* Add a spacer when nav is fixed to prevent content jump */
+.fixed-nav + main {
+    padding-top: 50px;
+}
+
+/* Language selector styling */
+.language-selector select {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 0.9rem;
+}
+
+/* Main content area */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    border-top: 1px solid #eee;
+}
+
+.chevron-header h1 {
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem 2rem;
+    display: inline-block;
+    position: relative;
+    font-size: 2.5rem;
+    margin: 0;
+    clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+    font-weight: bold;
+    font-family: 'Georgia', Times, serif;
+    padding-right: 70px;
+  }
+
+  .chevron-header {
+    margin-bottom: 20px;
+  }
+
+  .header-subtitle {
+    padding: 0.3rem 1rem;
+    color: #d5d5d5;
+    font-style: italic;
+    margin-left: 2rem;
+
+  }
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.title-text {
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 40px;
+}
+
+.title-text h1 {
+    color: #d5d5d5;
+}
+
+.title-text p {
+    color: #d5d5d5;
+}
+
+.language-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.language-icon-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.language-icon-btn img {
+    width: 60px;
+    height: 60px;
+    opacity: 0.6;
+}
+
+.language-icon-btn img.active {
+    opacity: 1;
+}
+
+.language-icon-btn:hover img {
+    opacity: 1;
+}
+
+/* Ensure no parent containers have overflow: hidden */
+.main-nav-container,
+header,
+.site-header {
+    overflow: visible !important;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;  /* Prevent horizontal scroll */
+}
+
+header {
+    position: relative;
+    width: 100%;
+}
+
+.active {
+    font-weight: 1000;
+}
+
+/* Hamburger menu button */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    background: none;
+    border: none;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+/* Body state when mobile menu is open */
+body.menu-open {
+    overflow: hidden; /* Prevent scrolling when menu is open */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+}
+
+/* Mobile navigation styles */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+        position: fixed;
+        top: 15px;
+        z-index: 2000;
+    }
+
+    .hamburger.scrolled span {
+        background-color: black;
+    }
+    
+    /* When menu is open, keep hamburger color consistent regardless of scroll position */
+    .hamburger.active span {
+        background-color: black;
+    }
+
+    .main-nav {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.98);
+        padding: 60px 20px 40px;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+        z-index: 1500;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        transition: all 0.3s ease-in-out;
+    }
+
+    .main-nav.active {
+        display: flex !important; /* Force display regardless of other styles */
+        position: fixed !important; /* Force fixed position */
+    }
+
+    .main-nav a {
+        padding: 15px 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        font-size: 1.2rem;
+        transition: color 0.2s ease;
+        color: black !important; /* Always black regardless of scroll state */
+    }
+
+    /* Override scrolled state color for mobile menu links */
+    .scrolled.main-nav a {
+        color: black !important;
+    }
+
+    .main-nav a:hover,
+    .main-nav a:active {
+        color: #000;
+        font-weight: bold;
+    }
+    
+    .main-nav a.active {
+        font-weight: bold;
+        border-bottom: 2px solid #000;
+    }
+
+    /* Make site title smaller on mobile */
+    .site-title {
+        padding: 15px;
+    }
+
+    .site-title h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    /* General mobile adjustments */
+    main {
+        padding: 0 15px;
+        margin: 20px auto;
+    }
+    
+    .fixed-nav + main {
+        padding-top: 0;
+    }
+    
+    .chevron-header h1 {
+        font-size: 1.8rem;
+        padding-right: 40px;
+    }
+}

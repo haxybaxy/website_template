@@ -1,0 +1,94 @@
+<div class="publications-list">
+    {% for publication in publications %}
+        <div class="publication-item">
+            <div class="publication-grid">
+
+
+                <div class="publication-content">
+                    <h3 class="publication-title">
+                        {% if publication.link %}
+                            <a href="{{ publication.link }}" target="_blank">{{ publication.title }}</a>
+                        {% else %}
+                            {{ publication.title }}
+                        {% endif %}
+                    </h3>
+
+                    <p class="publication-authors">{{ publication.authors }}</p>
+
+                    <p class="publication-meta">
+                        <span class="journal">{{ publication.journal }}</span>
+                        {% if publication.publication_date %}
+                            · <span class="publication-date">{{ publication.publication_date|date:"Y" }}</span>
+                        {% endif %}
+                        {% if publication.doi %}
+                            · <span class="doi">
+                                <span>DOI: {{ publication.doi }}</span>
+                            </span>
+                        {% endif %}
+                        {% if publication.archivelink %}
+                            · <span class="archivelink">
+                                <a href="{{ publication.archivelink }}" target="_blank">Archive</a>
+                            </span>
+                        {% endif %}
+                    </p>
+
+                    {% if publication.keywords %}
+                        <div class="publication-keywords">
+                            {% for keyword in publication.keywords.all %}
+                                <span>{{ keyword.name }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="publication-abstract" data-abstract-id="pub-{{ publication.id }}">
+                        <p>{{ publication.abstract }}</p>
+                    </div>
+                    
+                    <div class="elipsis">
+                    <p>...</p>
+                    </div>
+
+                    <div class="abstract-toggle" onclick="toggleAbstract('pub-{{ publication.id }}')">
+                        Show more
+                    </div>
+                </div>
+                {% if publication.image %}
+                    <div class="publication-image">
+                        <img src="{{ publication.image.url }}" alt="{{ publication.title }}" />
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p class="no-publications">No publications available yet.</p>
+    {% endfor %}
+
+  {% if publications.has_next %}
+  <div class="load-more"
+             hx-get="{% url 'publications' %}?page={{ publications.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_year %}&year={{ selected_year }}{% endif %}"
+             hx-trigger="intersect once"
+             hx-swap="beforeend"
+             hx-target=".publications-list">
+        </div>
+{% endif %}
+    </div>
+
+<script>
+function toggleAbstract(id) {
+    const abstract = document.querySelector(`[data-abstract-id="${id}"]`);
+    if (!abstract) return;
+    
+    const elipsis = abstract.nextElementSibling;
+    const toggle = abstract.nextElementSibling.nextElementSibling;
+
+    if (abstract.classList.contains('expanded')) {
+        abstract.classList.remove('expanded');
+        elipsis.textContent = '...';
+        toggle.textContent = 'Show more';
+    } else {
+        abstract.classList.add('expanded');
+        elipsis.textContent = '';
+        toggle.textContent = 'Show less';
+    }
+}
+</script>

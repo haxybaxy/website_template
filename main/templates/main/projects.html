@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+{% endblock %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+
+  <div class="projects-grid-container">
+    <div class="projects-grid"
+         hx-get="{% url 'projects' %}"
+         hx-trigger="intersect once"
+         hx-swap="outerHTML"
+         hx-target="this">
+        {% include 'main/partials/project-list.html' %}
+    </div>
+  </div>
+{% endblock %}

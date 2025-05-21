@@ -1,0 +1,140 @@
+.about-header {
+  margin-bottom: 2rem;
+  margin-left: 1rem;
+}
+
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.profile-section {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  align-items: start;
+}
+
+.profile-image {
+  width: 100%;
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.headshot {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+  background: #fff;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 0rem;
+}
+
+.profile-text {
+  color: #333;
+}
+
+.profile-text h1 {
+  font-size: 2rem;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  font-family: 'Georgia', Times, serif;
+}
+
+.profile-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.profile-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.8rem;
+  padding: 0 0.5rem;
+  padding-left: 0.1rem;
+}
+
+.social-btn {
+  background-color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5rem;
+  min-width: 40px;
+}
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .profile-section {
+      grid-template-columns: 1fr;
+  }
+
+  .profile-image {
+      max-width: 280px;
+      margin: 0 auto;
+  }
+
+  .headshot {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+  }
+
+  .about-header h1 {
+      font-size: 1.8rem;
+  }
+
+  .position-title {
+      font-size: 1.3rem;
+  }
+
+  .profile-text h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+  }
+
+  .profile-text p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+  }
+
+  .profile-links {
+      gap: 0.4rem;
+  }
+}
+
+.profile-text a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.profile-text a:hover {
+  color: #888;
+}
+
+.cv-btn {
+  transform: scale(0.85);
+}
+
+.cyphy-btn {
+  transform: scale(1.5);
+}
+
+.linkedin-btn {
+  transform: scale(0.85);
+}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load markdown_extras %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/experience.css' %}">
+{% endblock %}
+
+{% block title %}Experience{% endblock %}
+
+{% block content %}
+    <div class="experience-container">
+        <div class="experience-intro">
+            <p>{{ experience_description.description|markdown|safe }}</p>
+        </div>
+
+        <div class="experience-sections">
+            <section class="work-section">
+                <h2>Work Experience</h2>
+                <div class="accordion">
+                    {% for item in work_items %}
+                    <div class="accordion-item">
+                        <button class="accordion-button">
+                            <span class="title-institution"><strong>{{ item.title }}</strong> - {{ item.institution }}</span>
+                            <span class="date-range">{{ item.date_range }}</span>
+                        </button>
+                        <div id="work-content-{{ forloop.counter }}" class="accordion-content" style="display: none;">
+                            <p>{{ item.description|markdown|safe }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="education-section">
+                <h2>Education</h2>
+                <div class="accordion">
+                    {% for item in education_items %}
+                    <div class="accordion-item">
+                        <button class="accordion-button">
+                            <span class="title-institution"><strong>{{ item.title }}</strong> - {{ item.institution }}</span>
+                            <span class="date-range">{{ item.date_range }}</span>
+                        </button>
+                        <div id="edu-content-{{ forloop.counter }}" class="accordion-content" style="display: none;">
+                            <p>{{ item.description|markdown|safe }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const targetContent = this.nextElementSibling;
+                const isCurrentlyOpen = targetContent.style.display === 'block';
+
+                document.querySelectorAll('.accordion-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+
+                targetContent.style.display = isCurrentlyOpen ? 'none' : 'block';
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load markdown_extras %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <div class="about-content">
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="{% static 'images/Headshot2021.jpg' %}" class="headshot" alt="Profile Photo">
+                <div class="profile-links">
+                    {% if intro_text.cv_file %}
+                        <a href="{{ intro_text.cv_file.url }}" class="social-btn cv-btn" download>
+                            <img src="{% static 'images/cvlogo.svg' %}" alt="CV" style="width: 40px; height: 40px;">
+                        </a>
+                    {% else %}
+                        <a href="#" class="social-btn cv-btn">
+                            <img src="{% static 'images/cvlogo.svg' %}" alt="CV" style="width: 40px; height: 40px;">
+                        </a>
+                    {% endif %}
+                    {% if intro_text.linkedin_url %}
+                        <a href="{{ intro_text.linkedin_url }}" class="social-btn linkedin-btn" target="_blank">
+                            <img src="{% static 'images/linkedinlogo.svg' %}" alt="LinkedIn" style="width: 40px; height: 40px;">
+                        </a>
+                    {% endif %}
+                    {% if intro_text.scholar_url %}
+                        <a href="{{ intro_text.scholar_url }}" class="social-btn" target="_blank">
+                            <img src="{% static 'images/scholarlogo.svg' %}" alt="Google Scholar" style="width: 40px; height: 40px;">
+                        </a>
+                    {% endif %}
+                    {% if intro_text.email %}
+                        <a href="mailto:{{ intro_text.email }}" class="social-btn">
+                            <img src="{% static 'images/emaillogo.svg' %}" alt="Email" style="width: 40px; height: 40px;">
+                        </a>
+                    {% endif %}
+                    {% if intro_text.cyphy_url %}
+                        <a href="{{ intro_text.cyphy_url }}" class="social-btn cyphy-btn" target="_blank">
+                            <img src="{% static 'images/cyphylogo.svg' %}" alt="Cyphy" style="width: 40px; height: 40px;">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="profile-text">
+                {% if intro_text %}
+                    {{ intro_text.text|markdown|safe }}
+                {% endif %}
+
+            </div>
+        </div>
+
+{% endblock %}

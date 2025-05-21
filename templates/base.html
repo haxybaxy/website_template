@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Personal Site{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nav = document.querySelector('.main-nav');
+            const navTop = nav.offsetTop;
+            const hamburger = document.querySelector('.hamburger');
+            let isMobile = window.matchMedia("(max-width: 768px)").matches;
+            let menuOpen = false;
+            let scrollPosition = 0;
+
+            function handleScroll() {
+                if (menuOpen) {
+                    // Don't change fixed-nav classes if menu is open
+                    return;
+                }
+                
+                if (window.scrollY > navTop) {
+                    nav.classList.add('fixed-nav');
+                    nav.classList.add('scrolled');
+                    if (isMobile) {
+                        hamburger.classList.add('scrolled');
+                    }
+                } else {
+                    nav.classList.remove('fixed-nav');
+                    nav.classList.remove('scrolled');
+                    if (isMobile) {
+                        hamburger.classList.remove('scrolled');
+                    }
+                }
+            }
+
+            function toggleMenu() {
+                menuOpen = !menuOpen;
+                hamburger.classList.toggle('active');
+                nav.classList.toggle('active');
+                
+                if (menuOpen) {
+                    // When opening menu, save current scroll position
+                    scrollPosition = window.pageYOffset;
+                    document.body.classList.add('menu-open');
+                    document.body.style.top = `-${scrollPosition}px`;
+                    // When opening menu, ensure it has fixed-nav class
+                    nav.classList.add('fixed-nav');
+                } else {
+                    // When closing menu, restore scroll position
+                    document.body.classList.remove('menu-open');
+                    document.body.style.top = '';
+                    window.scrollTo(0, scrollPosition);
+                }
+            }
+
+            hamburger.addEventListener('click', toggleMenu);
+
+            // Close menu when clicking a link
+            document.querySelectorAll('.main-nav a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (menuOpen) {
+                        menuOpen = false;
+                        hamburger.classList.remove('active');
+                        nav.classList.remove('active');
+                        document.body.classList.remove('menu-open');
+                        document.body.style.top = '';
+                        window.scrollTo(0, scrollPosition);
+                    }
+                });
+            });
+
+            window.addEventListener('scroll', handleScroll);
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                isMobile = window.matchMedia("(max-width: 768px)").matches;
+                
+                // If screen size changes to desktop while menu is open, reset menu state
+                if (!isMobile && menuOpen) {
+                    menuOpen = false;
+                    hamburger.classList.remove('active');
+                    nav.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                    document.body.style.top = '';
+                    window.scrollTo(0, scrollPosition);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="site-title" style="background-image: url('{% if site_settings.banner_image %}{{ site_settings.banner_image.url }}{% else %}{% static 'images/grey_dark_banner.jpg' %}{% endif %}');
+            background-size: contain;
+            background-position: center;
+            ">
+            <div class="title-container">
+                <div class="title-text">
+                    <h1>{{ site_settings.title }}</h1>
+                    <p class="subtitle">{{ site_settings.subtitle }}</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="{% url 'about' %}" {% if request.path == '/' %}class="active"{% endif %}>ABOUT</a>
+        <a href="{% url 'experience' %}" {% if request.path == '/experience/' %}class="active"{% endif %}>EXPERIENCE</a>
+        <a href="{% url 'courses' %}" {% if request.path == '/courses/' %}class="active"{% endif %}>TEACHING</a>
+        <a href="{% url 'projects' %}" {% if request.path == '/projects/' %}class="active"{% endif %}>PROJECTS</a>
+        <a href="{% url 'talks' %}" {% if request.path == '/talks/' %}class="active"{% endif %}>TALKS</a>
+        <a href="{% url 'publications' %}" {% if request.path == '/publications/' %}class="active"{% endif %}>PUBLICATIONS</a>
+        <a href="{% url 'contact' %}" {% if request.path == '/contact/' %}class="active"{% endif %}>CONTACT</a>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© {% now "Y" %} Eduardo Castello</p>
+    </footer>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

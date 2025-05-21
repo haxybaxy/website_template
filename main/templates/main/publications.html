@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/publications.css' %}">
+{% endblock %}
+
+{% block title %}Publications{% endblock %}
+
+{% block content %}
+<div class="searchparams">
+<div class="search-container">
+  <input type="search"
+         name="search"
+         placeholder="Search publications..."
+         hx-get="{% url 'publications' %}"
+         hx-trigger="input changed delay:500ms"
+         hx-target=".publications-list"
+         hx-params="*"
+         value="{{ request.GET.search }}">
+</div>
+
+ <div class="year-tabs">
+    <a class="tab {% if not selected_year %}active{% endif %}" 
+       hx-get="{% url 'publications' %}?year=all" 
+       hx-target=".publications-list"
+       hx-push-url="true">All</a>
+    {% for year in years %}
+        <a class="tab {% if selected_year == year|stringformat:"s" %}active{% endif %}" 
+           hx-get="{% url 'publications' %}?year={{ year }}" 
+           hx-target=".publications-list"
+           hx-push-url="true">{{ year }}</a>
+    {% endfor %}
+</div> 
+
+</div>
+
+<div class="publications-grid"
+  hx-get="{% url 'publications' %}"
+  hx-trigger="intersect once"
+  hx-swap="innerHTML"
+  hx-target="this">
+{% include 'main/partials/publication-list.html' %}
+</div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+    activateCurrentTab();
+});
+
+// Run `activateCurrentTab` after HTMX updates the page
+document.body.addEventListener('htmx:afterSwap', function() {
+    activateCurrentTab();
+});
+
+function activateCurrentTab() {
+    const params = new URLSearchParams(window.location.search);
+    const selectedYear = params.get('year') || 'all';
+
+    document.querySelectorAll('.year-tabs .tab').forEach(tab => {
+        // Get the year parameter from the tab's hx-get attribute instead of its href
+        const tabYear = new URLSearchParams(tab.getAttribute('hx-get').split('?')[1] || '').get('year') || 'all';
+
+        // Ensure only one tab gets the active class
+        if (tabYear === selectedYear) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+}
+</script>
+
+{% endblock %}
+
+
