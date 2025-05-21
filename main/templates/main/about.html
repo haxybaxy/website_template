@@ -11,7 +11,11 @@
     <div class="about-content">
         <div class="profile-section">
             <div class="profile-image">
-                <img src="{% static 'images/Headshot2021.jpg' %}" class="headshot" alt="Profile Photo">
+                {% if intro_text.profile_image %}
+                    <img src="{{ intro_text.profile_image.url }}" class="headshot" alt="Profile Photo">
+                {% else %}
+                    <img src="{% static 'images/placeholder.png' %}" class="headshot" alt="Profile Photo">
+                {% endif %}
                 <div class="profile-links">
                     {% if intro_text.cv_file %}
                         <a href="{{ intro_text.cv_file.url }}" class="social-btn cv-btn" download>

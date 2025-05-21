@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, render
 from itertools import chain
 from datetime import datetime
 from .models import (
+    SiteSettings,
     EducationItem,
     ExperienceDescription,
     IntroText,
@@ -30,7 +31,8 @@ def talks(request):
 
 def contact(request):
     open_positions = OpenPositions.objects.all()
-    return render(request, "main/contact.html", {"open_positions": open_positions})
+    site_settings = SiteSettings.get_settings()
+    return render(request, "main/contact.html", {"open_positions": open_positions, "site_settings": site_settings})
 
 
 def projects(request):

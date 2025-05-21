@@ -5,6 +5,7 @@ from django.utils.text import slugify
 
 class IntroText(models.Model):
     text = models.TextField()
+    profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
     cv_file = models.FileField(upload_to='cv/', blank=True, null=True)
     linkedin_url = models.URLField(blank=True, null=True)
     scholar_url = models.URLField(blank=True, null=True)
@@ -18,6 +19,7 @@ class SiteSettings(models.Model):
     title = models.CharField(('Site Title'), max_length=200, default='John Doe')
     subtitle = models.CharField(('Subtitle'), max_length=200, default='CEO of Doe Corp')
     banner_image = models.ImageField(('Banner Image'), upload_to='banners/', blank=True, null=True)
+    calcom_link = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
         verbose_name = ('Site Settings')
