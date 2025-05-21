@@ -15,8 +15,8 @@ class IntroText(models.Model):
         return self.text
 
 class SiteSettings(models.Model):
-    title = models.CharField(('Site Title'), max_length=200, default='Eduardo Castello')
-    subtitle = models.CharField(('Subtitle'), max_length=200, default='Postdoctoral research fellow at MIT')
+    title = models.CharField(('Site Title'), max_length=200, default='John Doe')
+    subtitle = models.CharField(('Subtitle'), max_length=200, default='CEO of Doe Corp')
     banner_image = models.ImageField(('Banner Image'), upload_to='banners/', blank=True, null=True)
 
     class Meta:

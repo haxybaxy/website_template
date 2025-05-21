@@ -14,8 +14,8 @@ class Migration(migrations.Migration):
             name='SiteSettings',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(default='Eduardo Castello', max_length=200, verbose_name='Site Title')),
-                ('subtitle', models.CharField(default='Postdoctoral research fellow at MIT', max_length=200, verbose_name='Subtitle')),
+                ('title', models.CharField(default='John Doe', max_length=200, verbose_name='Site Title')),
+                ('subtitle', models.CharField(default='CEO of Doe Corp', max_length=200, verbose_name='Subtitle')),
             ],
             options={
                 'verbose_name': 'Site Settings',
